@@ -1,7 +1,7 @@
 # FISH
 FISH is a PHP package to interact with the Met Office Datapoint APIs
 
-## Usage Example
+## API Usage
 Let's get straight into an example... code to download the 5-Day weather feed from Datapoint APIs.
 
     namespace FISH;
@@ -52,7 +52,7 @@ API has changed or you'd like to add a new one to the config? Great, just edit t
     protected static $hourly_marine_observations_site_specific_all_timesteps            = 'val/wxmarineobs/all/##data_type##/##site_id##?res=hourly&key=##api_key##';
     
     # Three Hour Forecast
-        protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/capabilities?res=3hourly&key=##api_key##';
+    protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/capabilities?res=3hourly&key=##api_key##';
     protected static $three_hour_forecast_site_specific_all_timesteps                   = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&key=##api_key##';
     protected static $three_hour_forecast_all_sites_timestep_specific                   = 'val/wxfcs/all/##data_type##/all?res=3hourly&time=##timestep##&key=##api_key##';
     protected static $three_hour_forecast_site_specific_timestep_specific               = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&time=##timestep##&key=##api_key##';
