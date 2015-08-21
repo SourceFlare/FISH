@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Fish by markgreenall</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Fish</h1>
+      <h2 class="project-tagline">FISH is a PHP package to interact with the Met Office Datapoint APIs</h2>
+      <a href="https://github.com/markgreenall/FISH" class="btn">View on GitHub</a>
+      <a href="https://github.com/markgreenall/FISH/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/markgreenall/FISH/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="fish" class="anchor" href="#fish" aria-hidden="true"><span class="octicon octicon-link"></span></a>FISH</h1>
+
+<p>FISH is a PHP package to interact with the Met Office Datapoint APIs</p>
+
+<h2>
+<a id="api-usage" class="anchor" href="#api-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Usage</h2>
+
+<p>Let's get straight into an example... code to download the 5-Day weather feed from Datapoint APIs.</p>
+
+<pre><code>namespace FISH;
+
+use FISH\actions\Download;
+use FISH\actions\StoreToDisk;
+
+include_once(__DIR__ . './autoload.php');    # Autoloader to load classes
+
+$feed = 'five_day_summarised_forecast_all_sites_all_timesteps';    # 5 Day Forecast Feed
+$file = "/tmp/$feed.xml";    # File to save feed to
+
+StoreToDisk::write (
+  $file,     # File to save feed to
+  Download::feed(
+    $feed,   # Specify feed name to engine
+    'xml'    # Get XML from API (Opt: JSON, XML)
+  )
+);
+</code></pre>
+
+<p>*Please note: this is a static call, you may wish to wrap this in a class and call as a new object for an OO approach.</p>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>API has changed or you'd like to add a new one to the config? Great, just edit the /config/API.php file - API endpoints are listed as such:</p>
+
+<pre><code>protected static $API_KEY  = 'put-your-api-key-in-here';
+protected static $BASE_URL = 'http://datapoint.metoffice.gov.uk/public/data/';
+
+# Site List
+protected static $forecast_site_list                                                = 'val/wxfcs/all/##data_type##/sitelist?res=daily&amp;key=##api_key##';
+
+# Regional Text Forecast
+protected static $regional_text_forecast_site_list                                  = 'txt/wxfcs/regionalforecast/##data_type##/sitelist?key=##api_key##';
+protected static $regional_text_forecast_capabilities                               = 'txt/wxfcs/regionalforecast/##data_type##/capabilities?key=##api_key##';
+protected static $regional_text_forecast_site_specific                              = 'txt/wxfcs/regionalforecast/##data_type##/##site_id##?key=##api_key##';
+
+# Hourly Site Specific Observations
+protected static $hourly_site_specific_observations_capabilities                    = 'val/wxobs/all/##data_type##/capabilities?res=hourly&amp;key=##api_key##';
+protected static $hourly_site_specific_observations_all_sites_all_timesteps         = 'val/wxobs/all/##data_type##/all?res=hourly&amp;key=##api_key##';
+protected static $hourly_site_specific_observations_all_sites_timestep_specific     = 'val/wxobs/all/##data_type##/all?res=hourly&amp;time=##timestep##&amp;key=##api_key##';
+protected static $hourly_site_specific_observations_site_specific_all_timesteps     = 'val/wxobs/all/##data_type##/##site_id##?res=hourly&amp;key=##api_key##';
+protected static $hourly_site_specific_observations_site_specific_timestep_specific = 'val/wxobs/all/##data_type##/##site_id##?res=hourly&amp;time=##timestep##&amp;key=##api_key##';
+
+# Hourly Marine Observations
+protected static $marine_sites_list                                                 = 'val/wxmarineobs/all/##data_type##/sitelist?key=##api_key##';
+protected static $hourly_marine_observations_all_sites_capabilities                 = 'val/wxmarineobs/all/##data_type##/capabilities?res=hourly&amp;key=##api_key##';
+protected static $hourly_marine_observations_all_sites_all_timesteps                = 'val/wxmarineobs/all/##data_type##/all?res=hourly&amp;type=ShipSynops&amp;key=##api_key##';
+protected static $hourly_marine_observations_site_specific_all_timesteps            = 'val/wxmarineobs/all/##data_type##/##site_id##?res=hourly&amp;key=##api_key##';
+
+# Three Hour Forecast
+protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/capabilities?res=3hourly&amp;key=##api_key##';
+protected static $three_hour_forecast_site_specific_all_timesteps                   = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&amp;key=##api_key##';
+protected static $three_hour_forecast_all_sites_timestep_specific                   = 'val/wxfcs/all/##data_type##/all?res=3hourly&amp;time=##timestep##&amp;key=##api_key##';
+protected static $three_hour_forecast_site_specific_timestep_specific               = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&amp;time=##timestep##&amp;key=##api_key##';
+protected static $three_hour_forecast_all_sites_all_timesteps                       = 'val/wxfcs/all/##data_type##/all?res=3hourly&amp;key=##api_key##';
+
+# Five Day Forecast
+protected static $five_day_summarised_forecast_capabilities                         = 'val/wxfcs/all/##data_type##/capabilities?res=daily&amp;key=##api_key##';
+protected static $five_day_summarised_forecast_site_specific_all_timesteps          = 'val/wxfcs/all/##data_type##/##site_id##?res=daily&amp;key=##api_key##';
+protected static $five_day_summarised_forecast_site_specific_timestep_specific      = 'val/wxfcs/all/##data_type##/##site_id##?res=daily&amp;time=##timestep##&amp;key=##api_key##';
+protected static $five_day_summarised_forecast_all_sites_timestep_specific          = 'val/wxfcs/all/##data_type##/all?res=daily&amp;time=##timestep##&amp;key=##api_key##';
+protected static $five_day_summarised_forecast_all_sites_all_timesteps              = 'val/wxfcs/all/##data_type##/all?res=daily&amp;key=##api_key##';
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/markgreenall/FISH">Fish</a> is maintained by <a href="https://github.com/markgreenall">markgreenall</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-66609583-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
