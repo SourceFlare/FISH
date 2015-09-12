@@ -3,7 +3,7 @@ namespace FISH\config;
 
 class API
 {
-    protected static $API_KEY  = 'put-your-api-key-in-here';
+    protected static $API_KEY  = 'put_your_api_key_in_here';
 
     protected static $BASE_URL = 'http://datapoint.metoffice.gov.uk/public/data/';
 
@@ -29,7 +29,7 @@ class API
     protected static $hourly_marine_observations_site_specific_all_timesteps            = 'val/wxmarineobs/all/##data_type##/##site_id##?res=hourly&key=##api_key##';
 
     # Three Hour Forecast
-    protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/capabilities?res=3hourly&key=##api_key##';
+    protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/all/capabilities?res=3hourly&key=##api_key##';
     protected static $three_hour_forecast_site_specific_all_timesteps                   = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&key=##api_key##';
     protected static $three_hour_forecast_all_sites_timestep_specific                   = 'val/wxfcs/all/##data_type##/all?res=3hourly&time=##timestep##&key=##api_key##';
     protected static $three_hour_forecast_site_specific_timestep_specific               = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&time=##timestep##&key=##api_key##';
