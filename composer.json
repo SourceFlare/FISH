@@ -1,0 +1,15 @@
+{
+    "name": "markgreenall/FISH",
+    "description": "Met Office Datapoint Weather API access via your PHP stack",
+    "type": "project",
+    "keywords": [
+        "Met Office",
+        "weather"
+    ],
+    "authors": [
+        {
+            "name": "Mark Greenall",
+            "email": "mark@markgreenall.uk"
+        }
+    ]
+}
