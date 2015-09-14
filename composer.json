@@ -1,5 +1,5 @@
 {
-    "name": "markgreenall/FISH",
+    "name": "markgreenall/fish",
     "description": "Met Office Datapoint Weather API access via your PHP stack",
     "type": "project",
     "keywords": [
