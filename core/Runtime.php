@@ -10,22 +10,8 @@ class Runtime {
     #
     # This simple expample downloads a selection of the core APIs and
     # dumps them to disk.
-    final public function downloadFeeds ()
+    final public function downloadFeeds ($feeds)
     {
-        $feeds = [
-            'forecast_site_list',
-            'marine_sites_list',
-            'three_hour_forecast_capabilities',
-            'five_day_summarised_forecast_capabilities',
-            'hourly_site_specific_observations_capabilities',
-            'hourly_marine_observations_all_sites_capabilities',
-            'regional_text_forecast_site_list',
-            'hourly_marine_observations_all_sites_all_timesteps',
-            'hourly_site_specific_observations_all_sites_all_timesteps',
-            'three_hour_forecast_all_sites_all_timesteps',
-            'five_day_summarised_forecast_all_sites_all_timesteps'
-        ];
-
         # Download Feeds One-by-One
         foreach ($feeds as $f) {
 
