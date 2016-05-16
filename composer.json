@@ -3,13 +3,18 @@
     "description": "Met Office Datapoint Weather API access via your PHP stack",
     "type": "project",
     "keywords": [
+        "MetOffice",
         "Met Office",
-        "weather"
+        "Datapoint",
+        "weather",
+        "meteorlogical",
+        "climate",
+        "api"
     ],
     "authors": [
         {
-            "name": "Mark Greenall",
-            "email": "mark@markgreenall.uk"
+            "name": "SourceFlare",
+            "email": "info@sourceflare.uk"
         }
     ]
 }

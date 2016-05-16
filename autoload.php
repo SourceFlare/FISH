@@ -1,7 +1,9 @@
-<?php
-spl_autoload_register(function($className)
+<?php spl_autoload_register(function($className)
 {
-    $class = __DIR__ . '/' . str_replace("FISH\\", '', $className) . '.php';
+    $classname = str_replace("FISH\\", '', $className);
+    $classname = str_replace('\\', '/', $classname);
+
+    $class = __DIR__ . '/' . $classname . '.php';
 
     # Check if Class Exists & Include
     if (file_exists($class))

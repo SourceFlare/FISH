@@ -1,11 +1,16 @@
-<?php
-namespace FISH\config;
+<?php namespace FISH\config;
 
-class API
+
+class API_Configuration
 {
-    protected static $API_KEY  = 'put_your_api_key_in_here';
-
-    protected static $BASE_URL = 'http://datapoint.metoffice.gov.uk/public/data/';
+	# Your MetOffice Datapoint API-KEY
+    protected static $API_KEY   = 'b84ede11-3c80-44db-923f-6364fd400891';
+	
+    # Where to save the data
+    protected static $save_path = '/ops/data/';
+    
+    # Base URL for the API
+    protected static $BASE_URL  = 'http://datapoint.metoffice.gov.uk/public/data/';
 
     # Site List
     protected static $forecast_site_list                                                = 'val/wxfcs/all/##data_type##/sitelist?res=daily&key=##api_key##';
@@ -28,12 +33,12 @@ class API
     protected static $hourly_marine_observations_all_sites_all_timesteps                = 'val/wxmarineobs/all/##data_type##/all?res=hourly&type=ShipSynops&key=##api_key##';
     protected static $hourly_marine_observations_site_specific_all_timesteps            = 'val/wxmarineobs/all/##data_type##/##site_id##?res=hourly&key=##api_key##';
 
-    # Three Hour Forecast
-    protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/all/capabilities?res=3hourly&key=##api_key##';
+    # Three Hour Forecast			         http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/xml/capabilities?res=3hourly&key=
+    protected static $three_hour_forecast_capabilities                                  = 'val/wxfcs/all/##data_type##/capabilities?res=3hourly&key=##api_key##';
     protected static $three_hour_forecast_site_specific_all_timesteps                   = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&key=##api_key##';
-    protected static $three_hour_forecast_all_sites_timestep_specific                   = 'val/wxfcs/all/##data_type##/all?res=3hourly&time=##timestep##&key=##api_key##';
+    protected static $three_hour_forecast_all_sites_timestep_specific                   = 'val/wxfcs/all/##data_type##/?res=3hourly&time=##timestep##&key=##api_key##';
     protected static $three_hour_forecast_site_specific_timestep_specific               = 'val/wxfcs/all/##data_type##/##site_id##?res=3hourly&time=##timestep##&key=##api_key##';
-    protected static $three_hour_forecast_all_sites_all_timesteps                       = 'val/wxfcs/all/##data_type##/all?res=3hourly&key=##api_key##';
+    protected static $three_hour_forecast_all_sites_all_timesteps                       = 'val/wxfcs/all/##data_type##/all/?res=3hourly&key=##api_key##';
 
     # Five Day Forecast
     protected static $five_day_summarised_forecast_capabilities                         = 'val/wxfcs/all/##data_type##/capabilities?res=daily&key=##api_key##';
@@ -43,7 +48,14 @@ class API
     protected static $five_day_summarised_forecast_all_sites_all_timesteps              = 'val/wxfcs/all/##data_type##/all?res=daily&key=##api_key##';
 
 
-    ## Build the Feed URL ################################################
+    /**
+     * Get the Endpoint URL for given feed
+     * @param string $feed_name
+     * @param string $data_type
+     * @param string $site_id
+     * @param string $timestep
+     * @return string
+     */
     final public static function getEndpoint ($feed_name, $data_type='xml', $site_id='', $timestep='')
     {
         # Get the Endpoint URL
@@ -56,20 +68,42 @@ class API
         # Return Completed URL
         return $url;
     }
-
-    ## Get the API Key ###################################################
+	
+    /**
+     * Returns the configured save path location
+     * @return string
+     */
+    final public static function getSavePath () {
+    	return self::$save_path;
+    }
+    
+    /**
+     * Returns the API-KEY to the requestor
+     * @return string
+     */
     final public static function getAPIKey ()
     {
         return self::$API_KEY;
     }
 
-    ## Insert Key Type into URL ##########################################
+    /**
+     * Insert key into the API URL for requested API endpoint
+     * @param string $url
+     * @return string
+     */
     final public static function InsertKey ($url)
     {
         return str_replace('##api_key##', self::getAPIKey(), $url);
     }
-
-    ## Insert Data Type (XML / JSON) into URL ############################
+	
+    /**
+     * Insert the items needed in the URL
+     * @param string  $url
+     * @param string $data_type
+     * @param string $site_id
+     * @param string $timestep
+     * @return string
+     */
     final public static function InsertDataItems ($url, $data_type='xml', $site_id='', $timestep='')
     {
         # Insert Items if they exist
