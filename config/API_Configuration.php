@@ -4,7 +4,7 @@
 class API_Configuration
 {
 	# Your MetOffice Datapoint API-KEY
-    protected static $API_KEY   = 'b84ede11-3c80-44db-923f-6364fd400891';
+    protected static $API_KEY   = 'your_api_key_here';
 	
     # Where to save the data
     protected static $save_path = '/ops/data/';
