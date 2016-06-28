@@ -1,4 +1,7 @@
 # FISH
+
+[![Code Climate](https://codeclimate.com/github/SourceFlare/FISH/badges/gpa.svg)](https://codeclimate.com/github/SourceFlare/FISH) [![Test Coverage](https://codeclimate.com/github/SourceFlare/FISH/badges/coverage.svg)](https://codeclimate.com/github/SourceFlare/FISH/coverage) [![Issue Count](https://codeclimate.com/github/SourceFlare/FISH/badges/issue_count.svg)](https://codeclimate.com/github/SourceFlare/FISH)
+
 FISH is a PHP package to interact with the Met Office Datapoint APIs
 
 ## API Usage
